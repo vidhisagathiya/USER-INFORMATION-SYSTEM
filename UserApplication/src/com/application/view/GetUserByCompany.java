@@ -28,12 +28,12 @@ public class GetUserByCompany extends JFrame {
 		setLayout(null);
 		setVisible(true);
 
-		JLabel Lcode = new JLabel("Enter Company Name");
+		JLabel Lcode = new JLabel("Enter Company Name : ");
 		Lcode.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		Lcode.setBounds(50, 100, 200, 30);
 		add(Lcode);
 
-		JLabel userLabel = new JLabel("List of Users Working at this Company");
+		JLabel userLabel = new JLabel("Users Working at searched Company");
 		userLabel.setFont(new Font("Tahoma", Font.BOLD, 31));
 		userLabel.setForeground(new Color(100, 149, 237));
 		userLabel.setBounds(50, 20, 570, 35);

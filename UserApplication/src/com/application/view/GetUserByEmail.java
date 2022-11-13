@@ -27,18 +27,18 @@ public class GetUserByEmail extends JFrame {
 		setLayout(null);
 		setVisible(true);
 
-		JLabel Lcode = new JLabel("Enter User Email");
+		JLabel Lcode = new JLabel("Enter User Email : ");
 		Lcode.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		Lcode.setBounds(50, 100, 200, 30);
 		add(Lcode);
 
-		JLabel userLabel = new JLabel("User Information by Email");
+		JLabel userLabel = new JLabel("User with searched Email");
 		userLabel.setFont(new Font("Tahoma", Font.BOLD, 31));
 		userLabel.setForeground(new Color(100, 149, 237));
 		userLabel.setBounds(50, 20, 570, 35);
 		add(userLabel);
 
-		JButton btnShow = new JButton("Click to get data");
+		JButton btnShow = new JButton("Click here to view data");
 		btnShow.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		btnShow.addActionListener(new ActionListener() {

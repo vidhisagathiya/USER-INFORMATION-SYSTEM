@@ -33,7 +33,7 @@ public class GetAllUserDetails extends JFrame {
 		userLabel.setBounds(50, 20, 570, 35);
 		add(userLabel);
 
-		JButton btnShow = new JButton("Click to get data");
+		JButton btnShow = new JButton("Click here to view data");
 		btnShow.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		btnShow.addActionListener(new ActionListener() {

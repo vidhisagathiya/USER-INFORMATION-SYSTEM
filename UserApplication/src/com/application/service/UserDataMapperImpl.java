@@ -3,10 +3,11 @@ package com.application.service;
 import java.sql.*;
 
 public class UserDataMapperImpl implements UserDataMapper {
-
+	
 	@Override
 	public ResultSet getAllData() {
 
+		
 		ResultSet rs = null;
 
 		String query = "select " + "  u.fullname,\n" + "  u.username,\n" + "  u.email,\n" + "  u.phone,\n"
@@ -16,7 +17,8 @@ public class UserDataMapperImpl implements UserDataMapper {
 				+ " on u.addressid = a.addressid";
 
 		try {
-			PreparedStatement stmt = ConnectDB.ConnectToDB().prepareStatement(query);
+			ConnectDB con = ConnectDB.getInstance();
+			PreparedStatement stmt = con.getConnection().prepareStatement(query);
 			rs = stmt.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -41,8 +43,8 @@ public class UserDataMapperImpl implements UserDataMapper {
 				+ " on u.addressid = a.addressid " + "where c.cname = ?";
 
 		try {
-
-			PreparedStatement stmt = ConnectDB.ConnectToDB().prepareStatement(query);
+			ConnectDB con = ConnectDB.getInstance();
+			PreparedStatement stmt = con.getConnection().prepareStatement(query);
 			stmt.setString(1, comapnyname);
 			rs = stmt.executeQuery();
 		} catch (SQLException e) {
@@ -68,8 +70,8 @@ public class UserDataMapperImpl implements UserDataMapper {
 				+ " on u.addressid = a.addressid " + "where a.city = ?";
 
 		try {
-
-			PreparedStatement stmt = ConnectDB.ConnectToDB().prepareStatement(query);
+			ConnectDB con = ConnectDB.getInstance();
+			PreparedStatement stmt = con.getConnection().prepareStatement(query);
 			stmt.setString(1, cityName);
 			rs = stmt.executeQuery();
 
@@ -96,8 +98,8 @@ public class UserDataMapperImpl implements UserDataMapper {
 				+ " on u.addressid = a.addressid " + "where u.email= ?";
 
 		try {
-
-			PreparedStatement stmt = ConnectDB.ConnectToDB().prepareStatement(query);
+			ConnectDB con = ConnectDB.getInstance();
+			PreparedStatement stmt = con.getConnection().prepareStatement(query);
 			stmt.setString(1, EmailId);
 			rs = stmt.executeQuery();
 

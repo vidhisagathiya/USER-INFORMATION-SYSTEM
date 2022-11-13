@@ -7,7 +7,6 @@ import javax.swing.*;
 import com.application.service.JsonServiceImpl;
 import com.application.view.*;
 
-
 public class Mainframe extends JFrame {
 
 	public static void main(String[] args) {
@@ -38,7 +37,6 @@ public class Mainframe extends JFrame {
 		UserAppSystem.setBounds(300, 60, 1000, 55);
 		NewLabel.add(UserAppSystem);
 
-		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(Box.createHorizontalGlue());
@@ -48,7 +46,7 @@ public class Mainframe extends JFrame {
 		menuBar.add(MainMenu);
 
 		JMenuItem AllUserDetails = new JMenuItem("ALL USER DETAILS");
-		
+
 		MainMenu.add(AllUserDetails);
 
 		JMenuItem UserDetailByLocation = new JMenuItem("SEARCH BY LOCATION");
@@ -86,7 +84,5 @@ public class Mainframe extends JFrame {
 
 		setSize(1950, 1090);
 		setVisible(true);
-
 	}
-
 }

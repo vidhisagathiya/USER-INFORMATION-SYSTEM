@@ -65,21 +65,22 @@ public class JsonServiceImpl implements JsonServiceMapper {
 	}
 
 	public void JSONtoDatabase() {
+		 
 		List<User> user_list = getJsonData();
 		try {
-
+			ConnectDB con = ConnectDB.getInstance();
 			for (User obj : user_list) {
 
 				String emailadd = obj.getEmail();
 
-				PreparedStatement stmt = ConnectDB.ConnectToDB()
+				PreparedStatement stmt = con.getConnection()
 						.prepareStatement("SELECT userid from User where email = ?");
 				stmt.setString(1, emailadd);
 				ResultSet check = stmt.executeQuery();
 
 				if (check.next() == false) {
 
-					PreparedStatement pstmt1 = ConnectDB.ConnectToDB()
+					PreparedStatement pstmt1 = con.getConnection()
 							.prepareStatement("INSERT INTO Address values (?, ?, ?, ?, ?, ?, ?)");
 
 					pstmt1.setInt(1, obj.getAddress().getid());
@@ -91,7 +92,7 @@ public class JsonServiceImpl implements JsonServiceMapper {
 					pstmt1.setString(7, obj.getAddress().getGeo().getLng());
 					pstmt1.executeUpdate();
 
-					PreparedStatement pstmt2 = ConnectDB.ConnectToDB()
+					PreparedStatement pstmt2 = con.getConnection()
 							.prepareStatement("INSERT INTO Company values (?, ?, ?, ?)");
 
 					pstmt2.setInt(1, obj.getCompany().getId());
@@ -100,7 +101,7 @@ public class JsonServiceImpl implements JsonServiceMapper {
 					pstmt2.setString(4, obj.getCompany().getBs());
 					pstmt2.executeUpdate();
 
-					PreparedStatement pstmt3 = ConnectDB.ConnectToDB()
+					PreparedStatement pstmt3 = con.getConnection()
 							.prepareStatement("INSERT INTO User values (?, ?, ?, ?, ?, ?, ?, ?)");
 
 					pstmt3.setInt(1, obj.getId());
@@ -110,13 +111,13 @@ public class JsonServiceImpl implements JsonServiceMapper {
 					pstmt3.setString(5, obj.getPhone());
 					pstmt3.setString(6, obj.getWebsite());
 
-					PreparedStatement pstmt4 = ConnectDB.ConnectToDB()
+					PreparedStatement pstmt4 = con.getConnection()
 							.prepareStatement("SELECT cid from company where cname = ?");
 					pstmt4.setString(1, obj.getCompany().getName());
 					ResultSet city = pstmt4.executeQuery();
 					city.next();
 
-					PreparedStatement pstmt5 = ConnectDB.ConnectToDB()
+					PreparedStatement pstmt5 = con.getConnection()
 							.prepareStatement("SELECT addressid from address where zipcode = ?");
 					pstmt5.setString(1, obj.getAddress().getZipcode());
 
