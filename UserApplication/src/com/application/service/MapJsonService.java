@@ -19,11 +19,6 @@ public class MapJsonService implements iMapJsonService{
 	static StringBuffer responseContent = new StringBuffer();
 	static Gson gson = new Gson();
 	
-	
-	//getconnection()
-	//addrecords(conn, ){
-	//prepared statement
-//}
 	@Override
 	public  List<User> getData() {
 	    
@@ -39,7 +34,6 @@ public class MapJsonService implements iMapJsonService{
 			
 			
 			int status = connection.getResponseCode();
-			//System.out.println(status);
 			
 			String line;
 			
@@ -57,7 +51,6 @@ public class MapJsonService implements iMapJsonService{
 				}
 				reader.close();
 			}
-		//System.out.println("#############################");	
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -71,10 +64,6 @@ public class MapJsonService implements iMapJsonService{
 		}
 		
 		List<User> user_list = Arrays.asList(gson.fromJson(responseContent.toString(),User[].class));
-		//System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-		//for (User user : user_list) {
-		//	System.out.println(user);
-		//}
 		return user_list;
 		
 	}	

@@ -1,14 +1,15 @@
 package com.application.service;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 import com.application.model.User;
 
 public interface iMapUserDataService {
 	
-	public void getallData();
-	public List<User> getByCompany(String comapnyname);
-	public List<User> getByLocation(String cityName);
-	public List<User> getByEmail(String EmailId);
+	public ResultSet getallData();
+	public ResultSet getByCompany(String comapnyname);
+	public ResultSet getByLocation(String cityName);
+	public ResultSet getByEmail(String EmailId);
 	
 }
