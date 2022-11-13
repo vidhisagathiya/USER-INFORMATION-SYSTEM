@@ -1,22 +1,21 @@
 package com.application.model;
 
 public class Address {
-	public int addressid;
+	public int id;
 	public String street;
 	public String suite;
 	public String city;
 	public String zipcode;
 	public Geo geo;
 
-	public int getaddressid()
-	{
-		return addressid;
+	public int getid() {
+		return id;
 	}
-	public void setaddressid(int addressid)
-	{
-		this.addressid = addressid;
+
+	public void setid(int addressid) {
+		this.id = addressid;
 	}
-	
+
 	public String getStreet() {
 		return street;
 	}
@@ -56,9 +55,9 @@ public class Address {
 	public void setGeo(Geo geo) {
 		this.geo = geo;
 	}
-	
+
 	public String toString() {
-		return this.street+" "+this.suite+" "+this.city+" "+this.zipcode+" "+this.geo;
-		}
+		return this.street + " " + this.suite + " " + this.city + " " + this.zipcode + " " + this.geo;
+	}
 
 }

@@ -1,19 +1,19 @@
 package com.application.model;
 
 public class Company {
-	public int companyid;
+	public int id;
 	public String name;
 	public String catchPhrase;
 	public String bs;
 
-	public int getcompanyid()
-	{
-		return companyid;
+	public int getId() {
+		return id;
 	}
-	public void setcompanyid(int companyid)
-	{
-		this.companyid = companyid;
+
+	public void setId(int id) {
+		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
@@ -37,9 +37,9 @@ public class Company {
 	public void setBs(String bs) {
 		this.bs = bs;
 	}
-	
+
 	public String toString() {
-		return this.name+" "+this.catchPhrase+" "+this.bs;
-		}
+		return this.name + " " + this.catchPhrase + " " + this.bs;
+	}
 
 }

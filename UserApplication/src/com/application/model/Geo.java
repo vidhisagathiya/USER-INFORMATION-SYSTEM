@@ -1,19 +1,9 @@
 package com.application.model;
 
 public class Geo {
-	public int geoid;
 	public String lat;
 	public String lng;
 
-	public int getgeoid()
-	{
-		return geoid;
-	}
-	public void setgeoid(int geoid)
-	{
-		this.geoid = geoid;
-	}
-	
 	public String getLat() {
 		return lat;
 	}
@@ -29,9 +19,9 @@ public class Geo {
 	public void setLng(String lng) {
 		this.lng = lng;
 	}
-	
+
 	public String toString() {
-		return this.lat+" "+this.lng;
-		}
+		return this.lat + " " + this.lng;
+	}
 
 }
