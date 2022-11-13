@@ -73,9 +73,10 @@ public class User {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-	
+
 	public String toString() {
-		return this.id+" "+this.name+" "+this.username+" "+this.email+" "+this.address+" "+this.phone+" " +this.website+" "+this.company;
-		}
+		return this.id + " " + this.name + " " + this.username + " " + this.email + " " + this.address + " "
+				+ this.phone + " " + this.website + " " + this.company;
+	}
 
 }
