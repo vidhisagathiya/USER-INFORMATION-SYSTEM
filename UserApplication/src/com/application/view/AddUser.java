@@ -7,7 +7,6 @@ import java.sql.*;
 import javax.swing.*;
 
 import com.application.dal.CompanyDataMapperImpl;
-import com.application.dal.ConnectDB;
 import com.application.dal.UserDataMapperImpl;
 import com.application.model.User;
 
@@ -106,7 +105,7 @@ public class AddUser extends JFrame {
 		add(AddUsers);
 
 		UserDataMapperImpl userDataMapperImpl = new UserDataMapperImpl();
-		ResultSet result = userDataMapperImpl.getAllData();
+		ResultSet result = userDataMapperImpl.getAddressZipcode();
 		int y = 0;
 		String[] AddressList = new String[20];
 		try {
@@ -137,12 +136,8 @@ public class AddUser extends JFrame {
 				String CompanyName = (String) comboBox1.getSelectedItem();
 				String ZipCode = (String) comboBox2.getSelectedItem();
 
-				User user = new User();
-				user.setName(Name);
-				user.setUsername(UserName);
-				user.setEmail(Email);
-				user.setPhone(Phone);
-				user.setWebsite(Website);
+				User user = new User.UserBuilder().name(Name).username(UserName).email(Email).phone(Phone).website(Website).build();
+
 				UserDataMapperImpl userDataMapperImpl = new UserDataMapperImpl();
 				userDataMapperImpl.AddUser(user, CompanyName, ZipCode);
 				JOptionPane.showMessageDialog(null, "User Added Successfully");

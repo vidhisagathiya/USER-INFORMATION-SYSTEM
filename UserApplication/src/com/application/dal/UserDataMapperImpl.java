@@ -23,7 +23,7 @@ public class UserDataMapperImpl implements UserDataMapper {
 								+ "values (?, ?, ?, ?, ?, ?, ?)");
 
 				pstmt.setString(1, user.getName());
-				pstmt.setString(2, user.username);
+				pstmt.setString(2, user.getUsername());
 				pstmt.setString(3, user.getEmail());
 				pstmt.setString(4, user.getPhone());
 				pstmt.setString(5, user.getWebsite());
