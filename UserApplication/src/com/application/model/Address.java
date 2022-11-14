@@ -1,19 +1,19 @@
 package com.application.model;
 
 public class Address {
-	public int id;
+	public int Id;
 	public String street;
 	public String suite;
 	public String city;
 	public String zipcode;
 	public Geo geo;
 
-	public int getid() {
-		return id;
+	public int getId() {
+		return Id;
 	}
 
-	public void setid(int id) {
-		this.id = id;
+	public void setid(int Id) {
+		this.Id = Id;
 	}
 
 	public String getStreet() {

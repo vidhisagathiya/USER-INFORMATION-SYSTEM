@@ -1,7 +1,7 @@
 package com.application.model;
 
 public class User {
-	public int id;
+	public int Id;
 	public String name;
 	public String username;
 	public String email;
@@ -11,11 +11,11 @@ public class User {
 	public Company company;
 
 	public int getId() {
-		return id;
+		return Id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int Id) {
+		this.Id = Id;
 	}
 
 	public String getName() {
@@ -75,7 +75,7 @@ public class User {
 	}
 
 	public String toString() {
-		return this.id + " " + this.name + " " + this.username + " " + this.email + " " + this.address + " "
+		return this.name + " " + this.username + " " + this.email + " " + this.address + " "
 				+ this.phone + " " + this.website + " " + this.company;
 	}
 

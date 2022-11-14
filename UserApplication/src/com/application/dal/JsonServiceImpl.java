@@ -1,4 +1,4 @@
-package com.application.service;
+package com.application.dal;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -65,7 +65,7 @@ public class JsonServiceImpl implements JsonServiceMapper {
 	}
 
 	public void JSONtoDatabase() {
-		 
+
 		List<User> user_list = getJsonData();
 		try {
 			ConnectDB con = ConnectDB.getInstance();
@@ -83,7 +83,7 @@ public class JsonServiceImpl implements JsonServiceMapper {
 					PreparedStatement pstmt1 = con.getConnection()
 							.prepareStatement("INSERT INTO Address values (?, ?, ?, ?, ?, ?, ?)");
 
-					pstmt1.setInt(1, obj.getAddress().getid());
+					pstmt1.setInt(1, obj.getAddress().getId());
 					pstmt1.setString(2, obj.getAddress().getStreet());
 					pstmt1.setString(3, obj.getAddress().getSuite());
 					pstmt1.setString(4, obj.getAddress().getCity());
@@ -126,7 +126,6 @@ public class JsonServiceImpl implements JsonServiceMapper {
 					pstmt3.setInt(7, city.getInt(1));
 					pstmt3.setInt(8, address.getInt(1));
 					pstmt3.executeUpdate();
-
 				}
 			}
 		} catch (Exception e) {

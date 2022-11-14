@@ -1,4 +1,4 @@
-package com.application.service;
+package com.application.dal;
 import java.sql.*;
 
 //The Database class defines the `getInstance` method that lets

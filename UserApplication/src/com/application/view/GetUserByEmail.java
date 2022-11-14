@@ -4,7 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import com.application.service.UserDataMapperImpl;
+
+import com.application.dal.UserDataMapperImpl;
 
 import net.proteanit.sql.DbUtils;
 
@@ -18,7 +19,7 @@ public class GetUserByEmail extends JFrame {
 	}
 
 	public GetUserByEmail() {
-
+        super("SEARCH USER BY EMAIL");
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 13));
 
@@ -33,12 +34,12 @@ public class GetUserByEmail extends JFrame {
 		add(Lcode);
 
 		JLabel userLabel = new JLabel("User with searched Email");
-		userLabel.setFont(new Font("Tahoma", Font.BOLD, 31));
-		userLabel.setForeground(new Color(100, 149, 237));
+		userLabel.setForeground(Color.BLUE);
+		userLabel.setFont(new Font("Tahoma", Font.PLAIN, 23));
 		userLabel.setBounds(50, 20, 570, 35);
 		add(userLabel);
 
-		JButton btnShow = new JButton("Click here to view data");
+		JButton btnShow = new JButton("VIEW DATA");
 		btnShow.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		btnShow.addActionListener(new ActionListener() {
@@ -47,7 +48,7 @@ public class GetUserByEmail extends JFrame {
 				String mail = textField.getText();
 
 				UserDataMapperImpl dObj = new UserDataMapperImpl();
-				table.setModel(DbUtils.resultSetToTableModel(dObj.getByEmail(mail)));
+				table.setModel(DbUtils.resultSetToTableModel(dObj.getUserByEmail(mail)));
 				table.getColumnModel().getColumn(0).setHeaderValue("FULL NAME");
 				table.getColumnModel().getColumn(1).setHeaderValue("USER NAME");
 				table.getColumnModel().getColumn(2).setHeaderValue("EMAIL");
@@ -60,10 +61,11 @@ public class GetUserByEmail extends JFrame {
 				table.getColumnModel().getColumn(9).setHeaderValue("SUITE");
 				table.getColumnModel().getColumn(10).setHeaderValue("CITY");
 				table.getColumnModel().getColumn(11).setHeaderValue("ZIPCODE");
+				
 			}
 		});
 
-		btnShow.setBounds(200, 185, 200, 30);
+		btnShow.setBounds(220, 185, 200, 30);
 		btnShow.setBorder(new LineBorder(Color.BLACK));
 		add(btnShow);
 
@@ -83,7 +85,8 @@ public class GetUserByEmail extends JFrame {
 		add(textField);
 
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setSize(1800, 1090);
+		setSize(1500, 840);
+		setLocationRelativeTo(null);
 		setVisible(true);
 
 	}

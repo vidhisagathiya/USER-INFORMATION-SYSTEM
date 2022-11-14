@@ -1,17 +1,17 @@
 package com.application.model;
 
 public class Company {
-	public int id;
+	public int Id;
 	public String name;
 	public String catchPhrase;
 	public String bs;
 
 	public int getId() {
-		return id;
+		return Id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int Id) {
+		this.Id = Id;
 	}
 
 	public String getName() {

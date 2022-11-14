@@ -5,7 +5,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
-import com.application.service.UserDataMapperImpl;
+
+import com.application.dal.UserDataMapperImpl;
 
 import net.proteanit.sql.DbUtils;
 
@@ -27,13 +28,13 @@ public class GetAllUserDetails extends JFrame {
 		setLayout(null);
 		setVisible(true);
 
-		JLabel userLabel = new JLabel("All User Information");
-		userLabel.setFont(new Font("Tahoma", Font.BOLD, 31));
-		userLabel.setForeground(new Color(100, 149, 237));
+		JLabel userLabel = new JLabel("All User's Information");
+		userLabel.setForeground(Color.BLUE);
+		userLabel.setFont(new Font("Tahoma", Font.PLAIN, 23));
 		userLabel.setBounds(50, 20, 570, 35);
 		add(userLabel);
 
-		JButton btnShow = new JButton("Click here to view data");
+		JButton btnShow = new JButton("CLICK HERE TO VIEW DATA");
 		btnShow.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		btnShow.addActionListener(new ActionListener() {
@@ -58,12 +59,12 @@ public class GetAllUserDetails extends JFrame {
 			}
 		});
 
-		btnShow.setBounds(200, 100, 200, 30);
+		btnShow.setBounds(50, 100, 330, 50);
 		add(btnShow);
 
 		table = new JTable();
 		table.setBackground(Color.WHITE);
-		table.setBounds(23, 250, 1600, 768);
+		table.setBounds(23, 150, 1600, 768);
 		Font bigFont = new Font("IMPACT", Font.PLAIN, 15);
 		table.getTableHeader().setFont(bigFont);
 
@@ -73,9 +74,8 @@ public class GetAllUserDetails extends JFrame {
 		add(pane);
 
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setSize(1800, 1090);
+		setSize(1500, 840);
+		setLocationRelativeTo(null);
 		setVisible(true);
-
 	}
-
 }
