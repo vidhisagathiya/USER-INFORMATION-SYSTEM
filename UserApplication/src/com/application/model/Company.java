@@ -38,6 +38,7 @@ public class Company {
 		this.bs = bs;
 	}
 
+	@Override
 	public String toString() {
 		return this.name + " " + this.catchPhrase + " " + this.bs;
 	}

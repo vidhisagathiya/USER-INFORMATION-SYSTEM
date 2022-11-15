@@ -20,6 +20,7 @@ public class Geo {
 		this.lng = lng;
 	}
 
+	@Override
 	public String toString() {
 		return this.lat + " " + this.lng;
 	}

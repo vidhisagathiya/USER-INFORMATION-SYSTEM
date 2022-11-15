@@ -4,11 +4,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.*;
-import javax.swing.*;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
 
-import com.application.dal.ConnectDB;
 import com.application.dal.UserDataMapperImpl;
 
 import net.proteanit.sql.DbUtils;
@@ -27,7 +34,7 @@ public class DeleteUser extends JFrame {
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 13));
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(1000, 768);
 		setLayout(null);
 		setVisible(true);
@@ -51,11 +58,17 @@ public class DeleteUser extends JFrame {
 		btnDelete.setVisible(false);
 
 		btnShow.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent ae) {
 				btnDelete.setVisible(false);
 				String Email = textField.getText();
 				UserDataMapperImpl dObj = new UserDataMapperImpl();
-				table.setModel(DbUtils.resultSetToTableModel(dObj.getUserByEmail(Email)));
+				try {
+					table.setModel(DbUtils.resultSetToTableModel(dObj.getUserByEmail(Email)));
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				table.getColumnModel().getColumn(0).setHeaderValue("FULL NAME");
 				table.getColumnModel().getColumn(1).setHeaderValue("USER NAME");
 				table.getColumnModel().getColumn(2).setHeaderValue("EMAIL");
@@ -69,7 +82,7 @@ public class DeleteUser extends JFrame {
 				table.getColumnModel().getColumn(10).setHeaderValue("CITY");
 				table.getColumnModel().getColumn(11).setHeaderValue("ZIPCODE");
 				try {
-					if (Email != null && dObj.getUserByEmail(Email).next() != false)
+					if (Email != null && dObj.getUserByEmail(Email).next())
 						btnDelete.setVisible(true);
 					else
 						JOptionPane.showMessageDialog(null, "User not found");
@@ -81,10 +94,16 @@ public class DeleteUser extends JFrame {
 		});
 
 		btnDelete.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent ae) {
 				String Email = textField.getText();
 				UserDataMapperImpl userDataMapperImpl = new UserDataMapperImpl();
-				userDataMapperImpl.deleteUser(Email);
+				try {
+					userDataMapperImpl.deleteUser(Email);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				JOptionPane.showMessageDialog(null, "User deleted Successfully");
 				setVisible(false);
 
@@ -114,7 +133,7 @@ public class DeleteUser extends JFrame {
 		textField.setBounds(220, 100, 200, 30);
 		add(textField);
 
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		setSize(1500, 840);
 		setLocationRelativeTo(null);
 		setVisible(true);

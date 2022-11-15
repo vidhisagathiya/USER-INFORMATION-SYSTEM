@@ -1,9 +1,17 @@
 package com.application.view;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.WindowConstants;
 import javax.swing.table.TableColumnModel;
 
 import com.application.dal.UserDataMapperImpl;
@@ -23,7 +31,7 @@ public class GetAllUserDetails extends JFrame {
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 13));
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(1000, 768);
 		setLayout(null);
 		setVisible(true);
@@ -38,9 +46,15 @@ public class GetAllUserDetails extends JFrame {
 		btnShow.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		btnShow.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent ae) {
 				UserDataMapperImpl dObj = new UserDataMapperImpl();
-				table.setModel(DbUtils.resultSetToTableModel(dObj.getAllData()));
+				try {
+					table.setModel(DbUtils.resultSetToTableModel(dObj.getAllData()));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				table.getColumnModel().getColumn(0).setHeaderValue("FULL NAME");
 				table.getColumnModel().getColumn(1).setHeaderValue("USER NAME");
 				table.getColumnModel().getColumn(2).setHeaderValue("EMAIL");
@@ -48,7 +62,7 @@ public class GetAllUserDetails extends JFrame {
 				table.getColumnModel().getColumn(4).setHeaderValue("WEBSITE");
 				table.getColumnModel().getColumn(5).setHeaderValue("COMPANY");
 				table.getColumnModel().getColumn(6).setHeaderValue("CATCHPHRASE");
-				table.getColumnModel().getColumn(7).setHeaderValue("CBS");
+				table.getColumnModel().getColumn(7).setHeaderValue("BASE");
 				table.getColumnModel().getColumn(8).setHeaderValue("STREET");
 				table.getColumnModel().getColumn(9).setHeaderValue("SUITE");
 				table.getColumnModel().getColumn(10).setHeaderValue("CITY");
@@ -73,7 +87,7 @@ public class GetAllUserDetails extends JFrame {
 		pane.setBackground(Color.WHITE);
 		add(pane);
 
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		setSize(1500, 840);
 		setLocationRelativeTo(null);
 		setVisible(true);

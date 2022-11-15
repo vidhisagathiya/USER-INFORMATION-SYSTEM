@@ -56,6 +56,7 @@ public class Address {
 		this.geo = geo;
 	}
 
+	@Override
 	public String toString() {
 		return this.street + " " + this.suite + " " + this.city + " " + this.zipcode + " " + this.geo;
 	}

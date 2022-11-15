@@ -6,10 +6,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+
 import com.application.model.User;
 import com.google.gson.Gson;
 
@@ -64,24 +67,24 @@ public class JsonServiceImpl implements JsonServiceMapper {
 
 	}
 
-	public void JSONtoDatabase() {
+	@Override
+	public void JSONtoDatabase() throws SQLException {
 
 		List<User> user_list = getJsonData();
+		Connection con = null;
 		try {
-			ConnectDB con = ConnectDB.getInstance();
+			con = ConnectDB.getInstance().getConnection();
 			for (User obj : user_list) {
 
-				String emailadd = obj.getEmail();
+				String Email = obj.getEmail();
 
-				PreparedStatement stmt = con.getConnection()
-						.prepareStatement("SELECT userid from User where email = ?");
-				stmt.setString(1, emailadd);
+				PreparedStatement stmt = con.prepareStatement("SELECT UserId From User WHERE Email = ?");
+				stmt.setString(1, Email);
 				ResultSet check = stmt.executeQuery();
 
-				if (check.next() == false) {
+				if (!check.next()) {
 
-					PreparedStatement pstmt1 = con.getConnection()
-							.prepareStatement("INSERT INTO Address values (?, ?, ?, ?, ?, ?, ?)");
+					PreparedStatement pstmt1 = con.prepareStatement("INSERT INTO Address VALUES (?, ?, ?, ?, ?, ?, ?)");
 
 					pstmt1.setInt(1, obj.getAddress().getId());
 					pstmt1.setString(2, obj.getAddress().getStreet());
@@ -92,8 +95,7 @@ public class JsonServiceImpl implements JsonServiceMapper {
 					pstmt1.setString(7, obj.getAddress().getGeo().getLng());
 					pstmt1.executeUpdate();
 
-					PreparedStatement pstmt2 = con.getConnection()
-							.prepareStatement("INSERT INTO Company values (?, ?, ?, ?)");
+					PreparedStatement pstmt2 = con.prepareStatement("INSERT INTO Company VALUES (?, ?, ?, ?)");
 
 					pstmt2.setInt(1, obj.getCompany().getId());
 					pstmt2.setString(2, obj.getCompany().getName());
@@ -101,8 +103,7 @@ public class JsonServiceImpl implements JsonServiceMapper {
 					pstmt2.setString(4, obj.getCompany().getBs());
 					pstmt2.executeUpdate();
 
-					PreparedStatement pstmt3 = con.getConnection()
-							.prepareStatement("INSERT INTO User values (?, ?, ?, ?, ?, ?, ?, ?)");
+					PreparedStatement pstmt3 = con.prepareStatement("INSERT INTO User VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
 					pstmt3.setInt(1, obj.getId());
 					pstmt3.setString(2, obj.getName());
@@ -111,14 +112,12 @@ public class JsonServiceImpl implements JsonServiceMapper {
 					pstmt3.setString(5, obj.getPhone());
 					pstmt3.setString(6, obj.getWebsite());
 
-					PreparedStatement pstmt4 = con.getConnection()
-							.prepareStatement("SELECT cid from company where cname = ?");
+					PreparedStatement pstmt4 = con.prepareStatement("SELECT CompanyId From Company WHERE CompanyName = ?");
 					pstmt4.setString(1, obj.getCompany().getName());
 					ResultSet city = pstmt4.executeQuery();
 					city.next();
 
-					PreparedStatement pstmt5 = con.getConnection()
-							.prepareStatement("SELECT addressid from address where zipcode = ?");
+					PreparedStatement pstmt5 = con.prepareStatement("SELECT AddressId From Address WHERE Zipcode = ?");
 					pstmt5.setString(1, obj.getAddress().getZipcode());
 
 					ResultSet address = pstmt5.executeQuery();
@@ -129,9 +128,7 @@ public class JsonServiceImpl implements JsonServiceMapper {
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-
 		}
 
 	}

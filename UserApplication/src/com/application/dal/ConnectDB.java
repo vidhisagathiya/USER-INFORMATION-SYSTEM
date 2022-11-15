@@ -1,11 +1,14 @@
 package com.application.dal;
-import java.sql.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 //The Database class defines the `getInstance` method that lets
 //clients access the same instance of a database connection
 //throughout the program.
 public class ConnectDB {
-	
+
 	// The field for storing the singleton instance declared static.
 	private static ConnectDB instance;
 	private Connection connection;
@@ -13,10 +16,9 @@ public class ConnectDB {
 	private String username = "root";
 	private String password = "Think@1234";
 
-	
 	// The singleton's constructor is private to
-    // prevent direct construction calls with the `new`
-    // operator.
+	// prevent direct construction calls with the `new`
+	// operator.
 	private ConnectDB() throws SQLException {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -31,7 +33,7 @@ public class ConnectDB {
 	}
 
 	// The static method that controls access to the singleton
-    // instance.
+	// instance.
 	public static ConnectDB getInstance() throws SQLException {
 		if (instance == null) {
 			instance = new ConnectDB();

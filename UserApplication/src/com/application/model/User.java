@@ -2,7 +2,7 @@ package com.application.model;
 
 public class User {
 
-	//All final attributes
+	// All final attributes
 	private final int Id;
 	private final String name;
 	private final String username;
@@ -23,7 +23,7 @@ public class User {
 		this.company = builder.company;
 	}
 
-	//All getter, and NO setter to provide immutability
+	// All getter, and NO setter to provide immutability
 	public int getId() {
 		return Id;
 	}
@@ -56,12 +56,13 @@ public class User {
 		return company;
 	}
 
+	@Override
 	public String toString() {
 		return this.name + " " + this.username + " " + this.email + " " + this.address + " " + this.phone + " "
 				+ this.website + " " + this.company;
 	}
 
-	//Builder class
+	// Builder class
 	public static class UserBuilder {
 		private int id;
 		private String name;
@@ -81,7 +82,7 @@ public class User {
 			this.name = name;
 			return this;
 		}
-		
+
 		public UserBuilder username(String username) {
 			this.username = username;
 			return this;

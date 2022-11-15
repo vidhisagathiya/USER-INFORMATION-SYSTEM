@@ -1,26 +1,32 @@
 package com.application.dal;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.application.model.User;
 
 public class UserDataMapperImpl implements UserDataMapper {
 
+	ResultSet rs = null;
+	Connection con = null;
+	
 	@Override
-	public void AddUser(User user, String CompanyName, String ZipCode) {
+	public void AddUser(User user, String CompanyName, String ZipCode) throws SQLException {
 
 		try {
-			ConnectDB con = ConnectDB.getInstance();
+			con = ConnectDB.getInstance().getConnection();
 
-			PreparedStatement stmt = con.getConnection().prepareStatement("SELECT userid from User where email = ?");
+			PreparedStatement stmt = con.prepareStatement("SELECT Userid FROM User WHERE Email = ?");
 			stmt.setString(1, user.getEmail());
 			ResultSet check = stmt.executeQuery();
 
-			if (check.next() == false) {
+			if (!check.next()) {
 
-				PreparedStatement pstmt = con.getConnection().prepareStatement(
-						"INSERT INTO User (fullname , username, email, phone, website, cid, addressid) "
-								+ "values (?, ?, ?, ?, ?, ?, ?)");
+				PreparedStatement pstmt = con.prepareStatement(
+						"INSERT INTO User (Fullname , Username, Email, Phone, Website, CompanyId, AddressId) "
+								+ "VALUES (?, ?, ?, ?, ?, ?, ?)");
 
 				pstmt.setString(1, user.getName());
 				pstmt.setString(2, user.getUsername());
@@ -28,14 +34,12 @@ public class UserDataMapperImpl implements UserDataMapper {
 				pstmt.setString(4, user.getPhone());
 				pstmt.setString(5, user.getWebsite());
 
-				PreparedStatement pstmt1 = con.getConnection()
-						.prepareStatement("SELECT cid from company where cname = ?");
+				PreparedStatement pstmt1 = con.prepareStatement("SELECT CompanyId FROM Company WHERE Companyname = ?");
 				pstmt1.setString(1, CompanyName);
 				ResultSet city = pstmt1.executeQuery();
 				city.next();
 
-				PreparedStatement pstmt2 = con.getConnection()
-						.prepareStatement("SELECT addressid from address where zipcode = ?");
+				PreparedStatement pstmt2 = con.prepareStatement("SELECT AddressId FROM Address WHERE Zipcode = ?");
 				pstmt2.setString(1, ZipCode);
 
 				ResultSet address = pstmt2.executeQuery();
@@ -51,10 +55,11 @@ public class UserDataMapperImpl implements UserDataMapper {
 	}
 
 	@Override
-	public void deleteUser(String Email) {
+	public void deleteUser(String Email) throws SQLException {
+		Connection con = null;
 		try {
-			ConnectDB con = ConnectDB.getInstance();
-			PreparedStatement stmt = con.getConnection().prepareStatement("DELETE from User where email = ?");
+			con = ConnectDB.getInstance().getConnection();
+			PreparedStatement stmt = con.prepareStatement("DELETE FROM User WHERE Email = ?");
 			stmt.setString(1, Email);
 			stmt.executeUpdate();
 
@@ -66,19 +71,17 @@ public class UserDataMapperImpl implements UserDataMapper {
 	}
 
 	@Override
-	public ResultSet getAllData() {
+	public ResultSet getAllData() throws SQLException {
 
-		ResultSet rs = null;
-
-		String query = "select " + "  u.fullname,\n" + "  u.username,\n" + "  u.email,\n" + "  u.phone,\n"
-				+ "  u.website,\n" + "  c.cname,\n" + "  c.catchphrase,\n" + "  c.cbs,\n" + "  a.street,\n"
-				+ "  a.suite,\n" + "  a.city,\n" + "  a.zipcode\n"
-				+ " from user u right join company c on u.cid = c.cid right join address a\n"
-				+ " on u.addressid = a.addressid";
+		String query = "SELECT " + "  u.Fullname,\n" + "  u.Username,\n" + "  u.Email,\n" + "  u.Phone,\n"
+				+ "  u.Website,\n" + "  c.CompanyName,\n" + "  c.Catchphrase,\n" + "  c.cbs,\n" + "  a.Street,\n"
+				+ "  a.Suite,\n" + "  a.City,\n" + "  a.Zipcode\n"
+				+ " FROM User u RIGHT JOIN Company c ON u.CompanyId = c.CompanyId RIGHT JOIN Address a\n"
+				+ " ON u.Addressid = a.Addressid ";
 
 		try {
-			ConnectDB con = ConnectDB.getInstance();
-			PreparedStatement stmt = con.getConnection().prepareStatement(query);
+			con = ConnectDB.getInstance().getConnection();
+			PreparedStatement stmt = con.prepareStatement(query);
 			rs = stmt.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -92,19 +95,19 @@ public class UserDataMapperImpl implements UserDataMapper {
 	}
 
 	@Override
-	public ResultSet getUserByCompany(String comapnyname) {
-		// TODO Auto-generated method stub
+	public ResultSet getUserByCompany(String comapnyname) throws SQLException {
 
 		ResultSet rs = null;
-		String query = "select " + "  u.fullname,\n" + "  u.username,\n" + "  u.email,\n" + "  u.phone,\n"
-				+ "  u.website,\n" + "  c.cname,\n" + "  c.catchphrase,\n" + "  c.cbs,\n" + "  a.street,\n"
-				+ "  a.suite,\n" + "  a.city,\n" + "  a.zipcode\n"
-				+ " from user u right join company c on u.cid = c.cid right join address a\n"
-				+ " on u.addressid = a.addressid " + "where c.cname = ?";
+		Connection con = null;
+		String query = "SELECT " + "  u.Fullname,\n" + "  u.Username,\n" + "  u.Email,\n" + "  u.Phone,\n"
+				+ "  u.Website,\n" + "  c.Companyname,\n" + "  c.Catchphrase,\n" + "  c.cbs,\n" + "  a.Street,\n"
+				+ "  a.Suite,\n" + "  a.City,\n" + "  a.Zipcode\n"
+				+ " FROM User u RIGHT JOIN Company c ON u.CompanyId = c.CompanyId RIGHT JOIN Address a\n"
+				+ " ON u.Addressid = a.Addressid " + "WHERE  c.Companyname = ?";
 
 		try {
-			ConnectDB con = ConnectDB.getInstance();
-			PreparedStatement stmt = con.getConnection().prepareStatement(query);
+			con = ConnectDB.getInstance().getConnection();
+			PreparedStatement stmt = con.prepareStatement(query);
 			stmt.setString(1, comapnyname);
 			rs = stmt.executeQuery();
 		} catch (SQLException e) {
@@ -119,19 +122,17 @@ public class UserDataMapperImpl implements UserDataMapper {
 	}
 
 	@Override
-	public ResultSet getUserByLocation(String cityName) {
-		// TODO Auto-generated method stub
-		ResultSet rs = null;
-
-		String query = "select " + "  u.fullname,\n" + "  u.username,\n" + "  u.email,\n" + "  u.phone,\n"
-				+ "  u.website,\n" + "  c.cname,\n" + "  c.catchphrase,\n" + "  c.cbs,\n" + "  a.street,\n"
-				+ "  a.suite,\n" + "  a.city,\n" + "  a.zipcode\n"
-				+ " from user u right join company c on u.cid = c.cid right join address a\n"
-				+ " on u.addressid = a.addressid " + "where a.city = ?";
+	public ResultSet getUserByLocation(String cityName) throws SQLException {
+		
+		String query = "SELECT " + "  u.Fullname,\n" + "  u.Username,\n" + "  u.Email,\n" + "  u.Phone,\n"
+				+ "  u.Website,\n" + "  c.Companyname,\n" + "  c.Catchphrase,\n" + "  c.cbs,\n" + "  a.Street,\n"
+				+ "  a.Suite,\n" + "  a.City,\n" + "  a.Zipcode\n"
+				+ " FROM User u RIGHT JOIN Company c ON u.CompanyId = c.CompanyId RIGHT JOIN Address a\n"
+				+ " ON u.Addressid = a.Addressid " + "WHERE  a.City = ?";
 
 		try {
-			ConnectDB con = ConnectDB.getInstance();
-			PreparedStatement stmt = con.getConnection().prepareStatement(query);
+			con = ConnectDB.getInstance().getConnection();
+			PreparedStatement stmt = con.prepareStatement(query);
 			stmt.setString(1, cityName);
 			rs = stmt.executeQuery();
 
@@ -147,19 +148,17 @@ public class UserDataMapperImpl implements UserDataMapper {
 	}
 
 	@Override
-	public ResultSet getUserByEmail(String EmailId) {
-		// TODO Auto-generated method stub
+	public ResultSet getUserByEmail(String EmailId) throws SQLException {
 
-		ResultSet rs = null;
-		String query = "select " + "  u.fullname,\n" + "  u.username,\n" + "  u.email,\n" + "  u.phone,\n"
-				+ "  u.website,\n" + "  c.cname,\n" + "  c.catchphrase,\n" + "  c.cbs,\n" + "  a.street,\n"
-				+ "  a.suite,\n" + "  a.city,\n" + "  a.zipcode\n"
-				+ " from user u right join company c on u.cid = c.cid right join address a\n"
-				+ " on u.addressid = a.addressid " + "where u.email= ?";
+		String query = "SELECT " + "  u.Fullname,\n" + "  u.Username,\n" + "  u.Email,\n" + "  u.Phone,\n"
+				+ "  u.Website,\n" + "  c.Companyname,\n" + "  c.Catchphrase,\n" + "  c.cbs,\n" + "  a.Street,\n"
+				+ "  a.Suite,\n" + "  a.City,\n" + "  a.Zipcode\n"
+				+ " FROM User u RIGHT JOIN Company c ON u.CompanyId = c.CompanyId RIGHT JOIN Address a\n"
+				+ " ON u.Addressid = a.Addressid " + "WHERE u.Email= ?";
 
 		try {
-			ConnectDB con = ConnectDB.getInstance();
-			PreparedStatement stmt = con.getConnection().prepareStatement(query);
+			con = ConnectDB.getInstance().getConnection();
+			PreparedStatement stmt = con.prepareStatement(query);
 			stmt.setString(1, EmailId);
 			rs = stmt.executeQuery();
 
@@ -175,15 +174,13 @@ public class UserDataMapperImpl implements UserDataMapper {
 	}
 
 	@Override
-	public ResultSet getAddressZipcode() {
-		// TODO Auto-generated method stub
-		ResultSet rs = null;
-
-		String query = "select street, suite, city, zipcode, lat, lng from address";
+	public ResultSet getAddressZipcode() throws SQLException {
+		
+		String query = "SELECT Street, Suite, City, Zipcode, Latitude, Longitude  FROM Address";
 
 		try {
-			ConnectDB con = ConnectDB.getInstance();
-			PreparedStatement stmt = con.getConnection().prepareStatement(query);
+			con = ConnectDB.getInstance().getConnection();
+			PreparedStatement stmt = con.prepareStatement(query);
 			rs = stmt.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -192,6 +189,7 @@ public class UserDataMapperImpl implements UserDataMapper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		return rs;
 	}
 }

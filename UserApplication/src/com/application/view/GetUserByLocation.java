@@ -1,8 +1,18 @@
 package com.application.view;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.TableColumnModel;
 
@@ -24,7 +34,7 @@ public class GetUserByLocation extends JFrame {
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 13));
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(1000, 768);
 		setLayout(null);
 		setVisible(true);
@@ -44,12 +54,18 @@ public class GetUserByLocation extends JFrame {
 		btnShow.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		btnShow.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent ae) {
 
 				String location = textField.getText();
 
 				UserDataMapperImpl dObj = new UserDataMapperImpl();
-				table.setModel(DbUtils.resultSetToTableModel(dObj.getUserByLocation(location)));
+				try {
+					table.setModel(DbUtils.resultSetToTableModel(dObj.getUserByLocation(location)));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				table.getColumnModel().getColumn(0).setHeaderValue("FULL NAME");
 				table.getColumnModel().getColumn(1).setHeaderValue("USER NAME");
 				table.getColumnModel().getColumn(2).setHeaderValue("EMAIL");
@@ -87,7 +103,7 @@ public class GetUserByLocation extends JFrame {
 		textField.setBounds(220, 100, 200, 30);
 		add(textField);
 
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		setSize(1500, 840);
 		setLocationRelativeTo(null);
 		setVisible(true);

@@ -6,11 +6,12 @@ import java.sql.SQLException;
 
 public class CompanyDataMapperImpl implements CompanyDataMapper {
 
+	@Override
 	public ResultSet getAllData() {
 
 		ResultSet rs = null;
 
-		String query = "select cid, cname, catchphrase, cbs from company";
+		String query = "SELECT CompanyId, Companyname, Catchphrase, Cbs FROM Company";
 
 		try {
 			ConnectDB con = ConnectDB.getInstance();

@@ -1,10 +1,19 @@
 package com.application.view;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.sql.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import com.application.dal.CompanyDataMapperImpl;
 import com.application.dal.UserDataMapperImpl;
@@ -19,7 +28,7 @@ public class AddUser extends JFrame {
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("ADD NEW USER");
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setSize(1000, 768);
 		setLayout(null);
 		setVisible(true);
@@ -80,7 +89,7 @@ public class AddUser extends JFrame {
 		String[] CompanyList = new String[20];
 		try {
 			while (rs.next()) {
-				CompanyList[x++] = rs.getString("cname");
+				CompanyList[x++] = rs.getString("Companyname");
 			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -105,18 +114,24 @@ public class AddUser extends JFrame {
 		add(AddUsers);
 
 		UserDataMapperImpl userDataMapperImpl = new UserDataMapperImpl();
-		ResultSet result = userDataMapperImpl.getAddressZipcode();
+		ResultSet result = null;
+		try {
+			result = userDataMapperImpl.getAddressZipcode();
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		int y = 0;
 		String[] AddressList = new String[20];
 		try {
 			while (result.next()) {
-				AddressList[y++] = result.getString("zipcode");
+				AddressList[y++] = result.getString("Zipcode");
 			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		JLabel ZipCode = new JLabel("ZIP CODE");
 		ZipCode.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		ZipCode.setBounds(60, 380, 250, 27);
@@ -127,6 +142,7 @@ public class AddUser extends JFrame {
 		add(comboBox2);
 
 		btnShow.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent ae) {
 				String Name = textField.getText();
 				String UserName = textField_1.getText();
@@ -136,16 +152,22 @@ public class AddUser extends JFrame {
 				String CompanyName = (String) comboBox1.getSelectedItem();
 				String ZipCode = (String) comboBox2.getSelectedItem();
 
-				User user = new User.UserBuilder().name(Name).username(UserName).email(Email).phone(Phone).website(Website).build();
+				User user = new User.UserBuilder().name(Name).username(UserName).email(Email).phone(Phone)
+						.website(Website).build();
 
 				UserDataMapperImpl userDataMapperImpl = new UserDataMapperImpl();
-				userDataMapperImpl.AddUser(user, CompanyName, ZipCode);
+				try {
+					userDataMapperImpl.AddUser(user, CompanyName, ZipCode);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				JOptionPane.showMessageDialog(null, "User Added Successfully");
 				setVisible(false);
 
 			}
 		});
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		setSize(1500, 840);
 		setLocationRelativeTo(null);
 		setVisible(true);
