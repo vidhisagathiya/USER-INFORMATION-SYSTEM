@@ -9,7 +9,7 @@ Instructor:
 Dr. Constantinos Constantinides
 
 Contributors:
-Anurag Agarwal
+Anurag Agarwal & 
 Vidhi Sagathiya
 
 Requirement:
