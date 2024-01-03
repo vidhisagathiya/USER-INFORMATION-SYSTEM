@@ -1,16 +1,20 @@
-# SOEN-6441
+# SOEN-6441: User Information System
 
--------USER INFORMATION SYSTEM-------
+## Overview
 
+Welcome to the User Information System project, a crucial component of the first-semester course in the Masters of Applied Computer Science program at Concordia University, Fall 2022. This project is guided by the expertise of Dr. Constantinos Constantinides, and contributions from the team of Anurag Agarwal and Vidhi Sagathiya.
 
-This Project is a part of first semester course Masters of Applied Computer Science at Concordia University, Fall 2022.
+## Project Description
 
-Instructor:
-Dr. Constantinos Constantinides
+The primary objective of this project is to develop a robust system that interacts with an external API, handles JSON data, and performs various actions after storing the data in a database. The system is designed to support essential operations such as inserting, deleting, viewing, searching, and updating user information. The architecture is carefully crafted to seamlessly interface with the database, emphasizing the use of parametrized queries to ensure security and efficiency.
 
-Contributors:
-Anurag Agarwal & 
-Vidhi Sagathiya
+## Key Features
 
-Requirement:
-The system must read from an external API/JSON Data and perform actions after storing it in the database. Many of the features involve inserting, deleting, viewing, searching, or updating user information and thus will need to be accounted for in the architecture because of interfacing with the database required. The system must support reads from, updates and writes to the database showcasing the use of parametrized queries. The system must implement the use of some Testing tool for quality assurance.
+1. **API Integration:** The system seamlessly reads from an external API, utilizing JSON data to facilitate a smooth data flow.
+
+2. **Database Operations:** Robust functionality for inserting, deleting, viewing, searching, and updating user information in the database. The architecture is meticulously designed to handle these operations efficiently.
+
+3. **Parametrized Queries:** Security is a top priority. The system implements parametrized queries to prevent SQL injection attacks, ensuring the integrity of the database.
+
+4. **Testing Framework:** Quality assurance is paramount. The system incorporates a reliable testing tool to validate its functionalities, ensuring a stable and error-free user experience.
+
